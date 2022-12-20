@@ -12,28 +12,7 @@ module.exports = class Course {
         })
     }
 
-    mappingEquivalences() {
-        this.microCourses.forEach( microCourse => {
-    
-            if (!subjects.has(microCourse.desiredCourse)) {
-                subjects.set(microCourse.desiredCourse, [])
-            }
-            
-            if (subjects.has(microCourse.requiredCourse)) {
-                let subjectsWithDependency = subjects.get(microCourse.requiredCourse)
-                subjectsWithDependency.push(microCourse.desiredCourse)
-                subjects.set(microCourse.requiredCourse, subjectsWithDependency)
-            }
-    
-            if (!subjects.has(microCourse.requiredCourse)) {
-                subjects.set(microCourse.requiredCourse, [microCourse.desiredCourse])
-            }
-        })
-    }
-
-   getSubjectsInOrderToDo() {
-        this.mappingEquivalences()
-        let dependencySubjectCounter = createSubjectsWithNumberOfDependency()
+   getSubjectsInOrderToDo(subjects, dependencySubjectCounter) {
         let subjectsInOrder = []
 
         dependencySubjectCounter.forEach((value, key, map) => {
@@ -69,13 +48,5 @@ module.exports = class Course {
 
 }
 
-const createSubjectsWithNumberOfDependency = () => {
-    let aux = new Map()
-    subjects.forEach((value, key, map) => {
-        aux.set(key, value.length)
-    })
-    //descending order to get first the subject with more
-    return new Map([...aux].sort((a, b) => b[1] - a[1]))
-}
 
 
