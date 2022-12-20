@@ -33,7 +33,7 @@ module.exports = class Course {
 
    getSubjectsInOrderToDo() {
         this.mappingEquivalences()
-        let dependencySubjectCounter = createSubjectsWithDependency()
+        let dependencySubjectCounter = createSubjectsWithNumberOfDependency()
         let subjectsInOrder = []
 
         dependencySubjectCounter.forEach((value, key, map) => {
@@ -69,12 +69,12 @@ module.exports = class Course {
 
 }
 
-const createSubjectsWithDependency = () => {
+const createSubjectsWithNumberOfDependency = () => {
     let aux = new Map()
     subjects.forEach((value, key, map) => {
         aux.set(key, value.length)
     })
-    
+    //descending order to get first the subject with more
     return new Map([...aux].sort((a, b) => b[1] - a[1]))
 }
 

@@ -2,7 +2,7 @@ const http = require('http');
 const routes = require('../routes/courses')
 
 //port
-const port = 4000
+const port = 8080
 
 //server
 const server = http.createServer(routes.requestHandler)
